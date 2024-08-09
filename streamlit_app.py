@@ -75,8 +75,8 @@ with st.expander('DAG'):
 with st.sidebar:
   st.header('Impact of')
   country = st.selectbox('Country', ('Egypt', 'India'))
-  video = st.slider('Video', 0, 1)
-  portfolio = st.slider('Portfolio', 0, 1)
-  success_rate = st.slider('Success Rate', 0.5, 0.6, 0.7, 0.8, 0.9, 1.0)
+  video = st.slider('Video', min_value=0, max_value=1, step=1)
+  portfolio = st.slider('Portfolio', min_value=0, max_value=1, step=1)
+  success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1)
   
   
