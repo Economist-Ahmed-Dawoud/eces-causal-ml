@@ -77,14 +77,14 @@ with st.expander('DAG'):
 with st.sidebar:
     st.header('Causal Analysis Settings')
     
-    st.subheader('Select Variables to Include')
+    st.write('**Select Variables to Include**')
     include_country = st.checkbox('Country', value=True)
     include_video = st.checkbox('Video', value=True)
     include_portfolio = st.checkbox('Portfolio', value=True)
     include_success_rate = st.checkbox('Success Rate', value=True)
     include_embed = st.checkbox('Profile Quality', value=True)
     
-    st.subheader('Variable Values')
+    st.write('**Variable Values**')
     country = st.selectbox('Country', ('Egypt', 'India')) if include_country else None
     video = st.selectbox('Video', ('No', 'Yes')) if include_video else None
     portfolio = st.selectbox('Portfolio', ('No', 'Yes')) if include_portfolio else None
