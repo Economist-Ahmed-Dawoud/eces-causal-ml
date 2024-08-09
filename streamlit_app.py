@@ -84,7 +84,7 @@ with st.sidebar:
       'country': 1 if country == 'Egypt' else 0,  # Egypt: 1, India: 0
       'video': 1 if video == 'Yes' else 0,  # Yes: 1, No: 0
       'portfolio': 1 if portfolio == 'Yes' else 0,  # Yes: 1, No: 0
-      'success_rate: success_rate
+      'success_rate': success_rate
   }
     
   
