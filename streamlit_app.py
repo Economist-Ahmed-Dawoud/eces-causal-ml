@@ -108,20 +108,24 @@ with st.sidebar:
 
 @st.cache_resource
 def load_model_from_drive(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        content = BytesIO(response.content)
-        model = pickle.load(content)
-        return model
-    else:
-        st.error(f"Failed to load model. Status code: {response.status_code}")
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            content = BytesIO(response.content)
+            model = pickle.load(content)
+            return model
+        else:
+            st.error(f"Failed to load model. Status code: {response.status_code}")
+            return None
+    except Exception as e:
+        st.error(f"Error loading model: {str(e)}")
         return None
 
-# Load the model
+# Google Drive direct download link
 drive_link = 'https://drive.usercontent.google.com/download?id=1BbYMeMs0kzW-Ng2RPAMupmnnip-gxmOw&export=download&authuser=0'
-causal_model = load_model_from_drive(drive_link)
 
-causal_model
+# Load the model
+causal_model = load_model_from_drive(drive_link)
 
 if causal_model is None:
     st.stop()  # Stop the app if model loading failed
