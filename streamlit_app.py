@@ -69,5 +69,4 @@ with st.expander('DAG'):
     # Render the graph
     return dot
 
-  dag = create_freelance_dag()
-  dag
+  st.graphviz_chart(create_freelance_dag())
