@@ -73,10 +73,18 @@ with st.expander('DAG'):
 
 
 with st.sidebar:
-  st.header('Calculate the Impact of')
-  country = st.selectbox('**Country: Egypt = 0, India = 1**', (0, 1))
-  video = st.slider('**Video**', min_value=0, max_value=1, step=1)
-  portfolio = st.slider('**Portfolio**', min_value=0, max_value=1, step=1)
-  success_rate = st.slider('**Success Rate**', min_value=0.5, max_value=1.0, value=0.7, step=0.1)
-  
+  st.header('Impact of')
+  country = st.selectbox('Country', ('Egypt', 'India'))
+  video = st.selectbox('Video', ('No', 'Yes'))
+  portfolio = st.selectbox('Portfolio', ('No', 'Yes'))
+  success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1)
+
+
+  encoded_inputs = {
+      'country': 1 if country == 'Egypt' else 0,  # Egypt: 1, India: 0
+      'video': 1 if video == 'Yes' else 0,  # Yes: 1, No: 0
+      'portfolio': 1 if portfolio == 'Yes' else 0,  # Yes: 1, No: 0
+      'success_rate: success_rate
+  }
+    
   
