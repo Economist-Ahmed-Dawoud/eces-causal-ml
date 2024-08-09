@@ -111,9 +111,22 @@ def load_model_from_drive(url):
     try:
         response = requests.get(url)
         if response.status_code == 200:
-            content = BytesIO(response.content)
-            model = pickle.load(content)
-            return model
+            content = response.content
+            
+            # Let's check the first few bytes of the content
+            st.write(f"First 100 bytes of content: {content[:100]}")
+            
+            # If it's HTML, it will likely start with "<!DOCTYPE html>" or "<html>"
+            if content.startswith(b'<!DOCTYPE html>') or content.startswith(b'<html>'):
+                st.error("Received HTML instead of pickle data. The link might be incorrect or require authentication.")
+                return None
+            
+            try:
+                model = pickle.loads(content)
+                return model
+            except pickle.UnpicklingError:
+                st.error("Failed to unpickle the data. The file might not be in pickle format.")
+                return None
         else:
             st.error(f"Failed to load model. Status code: {response.status_code}")
             return None
@@ -129,7 +142,62 @@ causal_model = load_model_from_drive(drive_link)
 
 if causal_model is None:
     st.stop()  # Stop the app if model loading failed
-  
-  
-    
-  
+
+# Rest of your Streamlit app code...
+This code will show us the first 100 bytes of the content we're receiving, which should help us understand what we're actually getting from the link.
+
+If we confirm that we're receiving HTML instead of pickle data, there could be a few reasons:
+a. The link might require authentication.
+b. The file might not be set to be publicly accessible.
+c. Google Drive might be serving a download page instead of the file directly.
+To address these issues, we might need to use a different approach to download from Google Drive. Here's an alternative method:
+
+pythonCopyimport streamlit as st
+import requests
+import pickle
+import re
+from io import BytesIO
+
+@st.cache_resource
+def load_model_from_drive(file_id):
+    def get_confirm_token(response):
+        for key, value in response.cookies.items():
+            if key.startswith('download_warning'):
+                return value
+        return None
+
+    def save_response_content(response):
+        CHUNK_SIZE = 32768
+        content = BytesIO()
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk:
+                content.write(chunk)
+        content.seek(0)
+        return content
+
+    URL = "https://docs.google.com/uc?export=download"
+    session = requests.Session()
+    response = session.get(URL, params={'id': file_id}, stream=True)
+    token = get_confirm_token(response)
+
+    if token:
+        params = {'id': file_id, 'confirm': token}
+        response = session.get(URL, params=params, stream=True)
+
+    content = save_response_content(response)
+
+    try:
+        model = pickle.load(content)
+        return model
+    except Exception as e:
+        st.error(f"Error unpickling model: {str(e)}")
+        return None
+
+# Extract file ID from the link
+file_id = "1BbYMeMs0kzW-Ng2RPAMupmnnip-gxmOw"
+
+# Load the model
+causal_model = load_model_from_drive(file_id)
+
+if causal_model is None:
+    st.stop()  # Stop the app if model loading failed
