@@ -82,12 +82,14 @@ with st.sidebar:
     include_video = st.checkbox('Video', value=True)
     include_portfolio = st.checkbox('Portfolio', value=True)
     include_success_rate = st.checkbox('Success Rate', value=True)
+    include_embed = st.checkbox('Success Rate', value=True)
     
     st.subheader('Variable Values')
     country = st.selectbox('Country', ('Egypt', 'India')) if include_country else None
     video = st.selectbox('Video', ('No', 'Yes')) if include_video else None
     portfolio = st.selectbox('Portfolio', ('No', 'Yes')) if include_portfolio else None
-    success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1) if include_success_rate else None
+    success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.9, step=0.1) if include_success_rate else None
+    embedding_pca = st.slider('Profile Quality', min_value=-4, max_value=6, value=0, step=1) if include_embed else None
 
    
     # Encoding the inputs
@@ -100,6 +102,8 @@ with st.sidebar:
         encoded_inputs['portfolio'] = 1 if portfolio == 'Yes' else 0
     if include_success_rate:
         encoded_inputs['success_rate'] = success_rate
+    if include_success_rate:
+        encoded_inputs['embedding_pca'] = embedding_pca
 
 
       
