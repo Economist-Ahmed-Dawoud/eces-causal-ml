@@ -70,3 +70,13 @@ with st.expander('DAG'):
     return dot
 
   st.graphviz_chart(create_freelance_dag())
+
+
+with st.sidebar:
+  st.header('Impact of')
+  country = st.selectbox('Country', ('Egypt', 'India'))
+  video = st.slider('Video', 0, 1)
+  portfolio = st.slider('Portfolio', 0, 1)
+  success_rate = st.slider('Success Rate', 0.5, 0.6, 0.7, 0.8, 0.9, 1)
+  
+  
