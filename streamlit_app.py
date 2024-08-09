@@ -100,7 +100,6 @@ with st.sidebar:
     if include_success_rate:
         encoded_inputs['success_rate'] = success_rate
 
-    encoded_inputs
 
       
   
