@@ -68,7 +68,5 @@ with st.expander('DAG'):
     # Render the graph
     return dot
 
-  st.title('Causal Analysis of Freelance Labor Market')
-  
-  st.header('Causal Diagram')
-  st.graphviz_chart(create_freelance_dag())
+  dag = create_freelance_dag()
+  dag
