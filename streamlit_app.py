@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from graphviz import Digraph
 import pickle
+import requests
+from io import BytesIO
 
 st.title('🚀 Cuasal ML')
 
@@ -104,7 +106,26 @@ with st.sidebar:
         encoded_inputs['embedding_pca'] = embedding_pca
 
 
-      
+@st.cache_resource
+def load_model_from_drive(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        content = BytesIO(response.content)
+        model = pickle.load(content)
+        return model
+    else:
+        st.error(f"Failed to load model. Status code: {response.status_code}")
+        return None
+
+# Load the model
+drive_link = 'https://drive.usercontent.google.com/download?id=1BbYMeMs0kzW-Ng2RPAMupmnnip-gxmOw&export=download&authuser=0'
+causal_model = load_model_from_drive(drive_link)
+
+causal_model
+
+if causal_model is None:
+    st.stop()  # Stop the app if model loading failed
+  
   
     
   
