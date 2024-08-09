@@ -74,9 +74,7 @@ with st.expander('DAG'):
 
 
 
-with st.sidebar:
-    st.header('Causal Analysis Settings')
-    
+with st.sidebar:    
     st.write('**Select Variables to Include**')
     include_country = st.checkbox('Country', value=True)
     include_video = st.checkbox('Video', value=True)
