@@ -3,3 +3,8 @@ numpy
 pandas 
 dowhy
 econml
+graphviz
+networkx
+IPython
+seaborn
+matplotlib
