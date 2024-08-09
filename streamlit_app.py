@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from graphviz import Digraph
 
 st.title('🚀 Cuasal ML')
 
