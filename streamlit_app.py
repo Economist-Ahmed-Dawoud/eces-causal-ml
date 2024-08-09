@@ -82,7 +82,7 @@ with st.sidebar:
     include_video = st.checkbox('Video', value=True)
     include_portfolio = st.checkbox('Portfolio', value=True)
     include_success_rate = st.checkbox('Success Rate', value=True)
-    include_embed = st.checkbox('Success Rate', value=True)
+    include_embed = st.checkbox('Profile Quality', value=True)
     
     st.subheader('Variable Values')
     country = st.selectbox('Country', ('Egypt', 'India')) if include_country else None
