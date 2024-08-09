@@ -72,19 +72,33 @@ with st.expander('DAG'):
   st.graphviz_chart(create_freelance_dag())
 
 
+
 with st.sidebar:
-  st.header('Impact of')
-  country = st.selectbox('Country', ('Egypt', 'India'))
-  video = st.selectbox('Video', ('No', 'Yes'))
-  portfolio = st.selectbox('Portfolio', ('No', 'Yes'))
-  success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1)
+    st.header('Causal Analysis Settings')
+    
+    st.subheader('Select Variables to Include')
+    include_country = st.checkbox('Country', value=True)
+    include_video = st.checkbox('Video', value=True)
+    include_portfolio = st.checkbox('Portfolio', value=True)
+    include_success_rate = st.checkbox('Success Rate', value=True)
+    
+    st.subheader('Variable Values')
+    country = st.selectbox('Country', ('Egypt', 'India')) if include_country else None
+    video = st.selectbox('Video', ('No', 'Yes')) if include_video else None
+    portfolio = st.selectbox('Portfolio', ('No', 'Yes')) if include_portfolio else None
+    success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1) if include_success_rate else None
 
+    treatment = st.selectbox('Select Treatment Variable', 
+                             [var for var, include in zip(['Country', 'Video', 'Portfolio', 'Success Rate'],
+                                                          [include_country, include_video, include_portfolio, include_success_rate])
+                              if include])
 
-  encoded_inputs = {
+encoded_inputs = {
       'country': 1 if country == 'Egypt' else 0,  # Egypt: 1, India: 0
       'video': 1 if video == 'Yes' else 0,  # Yes: 1, No: 0
       'portfolio': 1 if portfolio == 'Yes' else 0,  # Yes: 1, No: 0
       'success_rate': success_rate
   }
+  
     
   
