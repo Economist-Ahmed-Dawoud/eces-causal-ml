@@ -89,12 +89,20 @@ with st.sidebar:
     success_rate = st.slider('Success Rate', min_value=0.5, max_value=1.0, value=0.7, step=0.1) if include_success_rate else None
 
    
-    encoded_inputs = {
-          'country': 1 if country == 'Egypt' else 0,  # Egypt: 1, India: 0
-          'video': 1 if video == 'Yes' else 0,  # Yes: 1, No: 0
-          'portfolio': 1 if portfolio == 'Yes' else 0,  # Yes: 1, No: 0
-          'success_rate': success_rate
-      }
+    # Encoding the inputs
+    encoded_inputs = {}
+    if include_country:
+        encoded_inputs['country'] = 1 if country == 'Egypt' else 0
+    if include_video:
+        encoded_inputs['video'] = 1 if video == 'Yes' else 0
+    if include_portfolio:
+        encoded_inputs['portfolio'] = 1 if portfolio == 'Yes' else 0
+    if include_success_rate:
+        encoded_inputs['success_rate'] = success_rate
+
+    encoded_inputs
+
+      
   
     
   
