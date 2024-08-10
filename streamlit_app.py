@@ -7,6 +7,8 @@ from io import BytesIO
 import bz2
 import gzip 
 import pickle
+from joblib import dump, load
+
 
 st.title('🚀 Cuasal ML')
 
@@ -108,10 +110,11 @@ with st.sidebar:
     if include_success_rate:
         encoded_inputs['embedding_pca'] = embedding_pca
 
-# Loading
-# Loading
-with gzip.open('model.pkl.gz', 'rb') as f:
-    loaded_model = pickle.load(f)
+# Loading compressed joblib
+def load_compressed_joblib(filename):
+    return load(filename)
+loaded_model = load_compressed_joblib('compressed_model.joblib')
+
 
 
 
