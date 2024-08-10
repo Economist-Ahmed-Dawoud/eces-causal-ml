@@ -5,7 +5,7 @@ import pickle
 import requests
 from io import BytesIO
 import bz2
-import gzip
+import gzip 
 import pickle
 
 st.title('🚀 Cuasal ML')
