@@ -107,17 +107,20 @@ with st.sidebar:
         encoded_inputs['embedding_pca'] = embedding_pca
 
 # Loading
-uploaded_file = st.file_uploader("Upload your GCM model file", type=["pbz2", "pkl"])
+def load_model(uploaded_file):
+    try:
+        model = pickle.load(uploaded_file)
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
+
+st.title("Freelance Labor Market Causal Analysis")
+
+uploaded_file = st.file_uploader("Upload your GCM model file", type=["pkl"])
 
 if uploaded_file is not None:
-    # Load the model
-    if uploaded_file.name.endswith('.pbz2'):
-        with bz2.BZ2File(uploaded_file, 'rb') as f:
-            gcm_model = pickle.load(f)
-    else:
-        gcm_model = pickle.load(uploaded_file)
-    
-    st.success("Model loaded successfully!")
+    gcm_model = load_model(uploaded_file)
 
 
 
