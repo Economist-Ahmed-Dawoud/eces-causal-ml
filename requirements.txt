@@ -8,3 +8,4 @@ networkx
 IPython
 seaborn
 matplotlib
+bz2
