@@ -107,20 +107,25 @@ with st.sidebar:
         encoded_inputs['embedding_pca'] = embedding_pca
 
 # Loading
-def load_model(uploaded_file):
+# Loading
+@st.cache_resource  # This will cache the model to improve performance
+def load_model():
     try:
-        model = pickle.load(uploaded_file)
+        with bz2.BZ2File('model-pbz2', 'rb') as f:
+            model = pickle.load(f)
         return model
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
 
-st.title("Freelance Labor Market Causal Analysis")
+# Load the model when the app starts
+gcm_model = load_model()
 
-uploaded_file = st.file_uploader("Upload your GCM model file", type=["pkl"])
+if gcm_model is not None:
+    st.success("Model loaded successfully!")
+else:
+    st.error("Failed to load the model. Please check if 'model.pbz2' exists in the correct location.")
 
-if uploaded_file is not None:
-    gcm_model = load_model(uploaded_file)
 
 
 
