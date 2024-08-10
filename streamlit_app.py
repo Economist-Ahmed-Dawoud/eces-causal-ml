@@ -111,21 +111,8 @@ with st.sidebar:
 # Loading
 # Loading
 @st.cache_resource  # This will cache the model to improve performance
-def load_model():
-    try:
-        with gzip.open('model.pkl.gz', 'rb') as f:
-            loaded_model = pickle.load(f)
-    except Exception as e:
-        st.error(f"Error loading model: {e}")
-        return None
-
-# Load the model when the app starts
-gcm_model = load_model()
-
-if gcm_model is not None:
-    st.success("Model loaded successfully!")
-else:
-    st.error("Failed to load the model. Please check if 'model-pbz2' exists in the correct location.")
+with gzip.open('model.pkl.gz', 'rb') as f:
+    loaded_model = pickle.load(f)
 
 
 
