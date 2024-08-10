@@ -107,8 +107,17 @@ with st.sidebar:
         encoded_inputs['embedding_pca'] = embedding_pca
 
 # Loading
-with bz2.BZ2File('https://github.com/Economist-Ahmed-Dawoud/Data/blob/main/model-pbz2', 'rb') as f:
-    causal_model = pickle.load(f)
+uploaded_file = st.file_uploader("Upload your GCM model file", type=["pbz2", "pkl"])
+
+if uploaded_file is not None:
+    # Load the model
+    if uploaded_file.name.endswith('.pbz2'):
+        with bz2.BZ2File(uploaded_file, 'rb') as f:
+            gcm_model = pickle.load(f)
+    else:
+        gcm_model = pickle.load(uploaded_file)
+    
+    st.success("Model loaded successfully!")
 
 
 
