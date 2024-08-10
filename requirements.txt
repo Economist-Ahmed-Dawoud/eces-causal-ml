@@ -1,5 +1,5 @@
 streamlit
-numpy
+numpy==1.19.5
 pandas 
 dowhy
 econml
