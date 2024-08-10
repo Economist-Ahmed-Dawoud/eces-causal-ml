@@ -111,7 +111,7 @@ with st.sidebar:
 @st.cache_resource  # This will cache the model to improve performance
 def load_model():
     try:
-        with bz2.BZ2File('model-pbz2', 'rb') as f:
+        with bz2.BZ2File('model-pbz2.pbz2', 'rb') as f:
             model = pickle.load(f)
         return model
     except Exception as e:
@@ -124,7 +124,7 @@ gcm_model = load_model()
 if gcm_model is not None:
     st.success("Model loaded successfully!")
 else:
-    st.error("Failed to load the model. Please check if 'model.pbz2' exists in the correct location.")
+    st.error("Failed to load the model. Please check if 'model-pbz2' exists in the correct location.")
 
 
 
