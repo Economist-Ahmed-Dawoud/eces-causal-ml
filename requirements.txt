@@ -7,5 +7,4 @@ graphviz
 networkx
 IPython
 seaborn
-matplotlib
-gzip 
+matplotlib 
