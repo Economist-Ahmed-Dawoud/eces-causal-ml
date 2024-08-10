@@ -110,7 +110,6 @@ with st.sidebar:
 
 # Loading
 # Loading
-@st.cache_resource  # This will cache the model to improve performance
 with gzip.open('model.pkl.gz', 'rb') as f:
     loaded_model = pickle.load(f)
 
