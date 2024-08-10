@@ -4,6 +4,7 @@ from graphviz import Digraph
 import pickle
 import requests
 from io import BytesIO
+import bz2
 
 st.title('🚀 Cuasal ML')
 
@@ -104,5 +105,11 @@ with st.sidebar:
         encoded_inputs['success_rate'] = success_rate
     if include_success_rate:
         encoded_inputs['embedding_pca'] = embedding_pca
+
+# Loading
+with bz2.BZ2File('https://github.com/Economist-Ahmed-Dawoud/Data/blob/main/model-pbz2', 'rb') as f:
+    causal_model = pickle.load(f)
+
+
 
 
