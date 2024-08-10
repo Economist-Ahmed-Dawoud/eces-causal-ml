@@ -111,9 +111,8 @@ with st.sidebar:
 @st.cache_resource  # This will cache the model to improve performance
 def load_model():
     try:
-        with bz2.BZ2File('model-pbz2', 'rb') as f:
-            model = pickle.load(f)
-        return model
+        with gzip.open('model.pkl.gz', 'rb') as f:
+            loaded_model = pickle.load(f)
     except Exception as e:
         st.error(f"Error loading model: {e}")
         return None
